@@ -1,4 +1,4 @@
-package com.parcial2.Entities;
+package com.parcial2.domain.Entities;
 
 import jakarta.persistence.*;
 import lombok.Data;

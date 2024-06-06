@@ -1,4 +1,4 @@
-package com.parcial2.Entities;
+package com.parcial2.domain.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
