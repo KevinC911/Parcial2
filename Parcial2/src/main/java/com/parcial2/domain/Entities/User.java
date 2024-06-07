@@ -4,7 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -12,14 +17,15 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table
-public class User {
+public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID code;
-
     private String username;
     private String password;
     private String email;
+    @Column(name = "active", insertable = false)
+    private Boolean active;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
@@ -33,6 +39,34 @@ public class User {
     )
     private Set<Role> roles;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Token> tokens;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.active;
+    }
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<MedicalAppointment> medicalAppointments;
