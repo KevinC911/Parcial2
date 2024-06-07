@@ -1,23 +1,25 @@
 package com.parcial2.domain.Entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table
-public class Prescription {
-
+public class Speciality {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID code;
 
-    private String name;
+    @OneToMany(mappedBy = "speciality")
+    @JsonIgnore
+    private Set<MedicalProcedure> procedures;
 
-    @ManyToOne
-    @JoinColumn(name = "medical_appointment_code")
-    private MedicalAppointment medical_appointment;
+    private String name;
 }

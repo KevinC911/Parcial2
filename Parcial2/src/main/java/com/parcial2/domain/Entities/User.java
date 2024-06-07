@@ -67,4 +67,11 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return this.active;
     }
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<MedicalAppointment> medicalAppointments;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<MedicalProcedure> procedures;
 }
