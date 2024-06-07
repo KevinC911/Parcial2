@@ -9,15 +9,21 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table
-public class Prescription {
+public class MedicalProcedure {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID code;
 
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "user_code")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "medical_appointment_code")
     private MedicalAppointment medical_appointment;
+
+    @ManyToOne
+    @JoinColumn(name = "speciality_code")
+    private Speciality speciality;
 }

@@ -32,4 +32,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<MedicalAppointment> medicalAppointments;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<MedicalProcedure> procedures;
 }
