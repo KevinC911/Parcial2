@@ -13,7 +13,6 @@ import java.util.Map;
 
 @Component
 public class JWTTools {
-
     @Value("${jwt.secret}")
     private String secret;
 

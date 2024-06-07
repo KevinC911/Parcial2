@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,10 +27,10 @@ public class MedicalAppointment {
 
     @OneToMany(mappedBy = "medical_appointment")
     @JsonIgnore
-    private Set<Prescription> prescriptions;
+    private List<Prescription> prescriptions;
 
     @OneToMany(mappedBy = "medical_appointment")
     @JsonIgnore
-    private Set<MedicalProcedure> procedures;
+    private List<MedicalProcedure> procedures;
 
 }

@@ -5,13 +5,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -24,12 +22,11 @@ public class User implements UserDetails{
     private String username;
     private String password;
     private String email;
-    @Column(name = "active", insertable = false)
-    private Boolean active;
+    private boolean active = false;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
-    private Set<History> medicalHistory;
+    private List<History> medicalHistory;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -37,41 +34,49 @@ public class User implements UserDetails{
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles;
+    private List<Role> roles;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Token> tokens;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<MedicalAppointment> medicalAppointments;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<MedicalProcedure> procedures;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<Role> roles = getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+
+        return authorities;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return UserDetails.super.isAccountNonExpired();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return UserDetails.super.isAccountNonLocked();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return UserDetails.super.isCredentialsNonExpired();
     }
 
     @Override
     public boolean isEnabled() {
-        return this.active;
+        return UserDetails.super.isEnabled();
     }
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private Set<MedicalAppointment> medicalAppointments;
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private Set<MedicalProcedure> procedures;
 }

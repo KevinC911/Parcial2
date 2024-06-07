@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ public class Speciality {
 
     @OneToMany(mappedBy = "speciality")
     @JsonIgnore
-    private Set<MedicalProcedure> procedures;
+    private List<MedicalProcedure> procedures;
 
     private String name;
 }

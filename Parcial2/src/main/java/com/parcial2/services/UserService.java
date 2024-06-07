@@ -6,13 +6,15 @@ import com.parcial2.domain.DTOs.UserRegisterDTO;
 import com.parcial2.domain.Entities.User;
 import java.util.List;
 
-public interface UserService extends UserDetailsService {
+public interface UserService {
 
-    User findByUsername(String username);
-    User saveUser(User user);
+    void saveUser(UserRegisterDTO info);
 
     // Token management
     Token registerToken(User user) throws Exception;
     Boolean isTokenValid(User user, String token);
     void cleanTokens(User user) throws Exception;
+    User findUserAuthenticated();
+
+    User findUserByIdentifier(String identifier);
 }
