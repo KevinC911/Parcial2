@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -108,6 +110,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User findUserByIdentifier(String identifier) {
         return userRepository.findByUsernameOrEmail(identifier, identifier);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public Optional<User> findById(UUID id) {
+        return userRepository.findById(id);
     }
 
     @Override
