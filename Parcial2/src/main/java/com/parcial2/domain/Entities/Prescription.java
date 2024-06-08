@@ -2,6 +2,7 @@ package com.parcial2.domain.Entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.UUID;
 
 @Data
@@ -19,5 +20,4 @@ public class Prescription {
     @ManyToOne
     @JoinColumn(name = "medical_appointment_code")
     private MedicalAppointment medical_appointment;
-
 }

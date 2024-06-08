@@ -1,9 +1,6 @@
 package com.parcial2.domain.Entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,7 +24,8 @@ public class User implements UserDetails{
     private String email;
     private boolean active = false;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<History> medicalHistory;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -36,7 +34,6 @@ public class User implements UserDetails{
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    @JsonManagedReference
     private List<Role> roles;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

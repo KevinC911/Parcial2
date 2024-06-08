@@ -10,8 +10,6 @@ import java.util.UUID;
 @Data
 @Table
 @NoArgsConstructor
-//propiedad específica del objeto como un identificador, que Jackson puede utilizar para evitar la serialización infinita en el caso de referencias circulares.
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "code")
 public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -20,7 +18,7 @@ public class History {
     private String illness;
 
     @ManyToOne
-    @JoinColumn(name = "user_code", nullable = false)
+    @JoinColumn(name = "user_code")
     private User user;
 
 }

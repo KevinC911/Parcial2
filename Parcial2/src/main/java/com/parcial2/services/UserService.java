@@ -5,8 +5,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import com.parcial2.domain.DTOs.UserRegisterDTO;
 import com.parcial2.domain.Entities.User;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 public interface UserService {
 
@@ -19,10 +17,4 @@ public interface UserService {
     User findUserAuthenticated();
 
     User findUserByIdentifier(String identifier);
-
-    //listar todos los usuarios
-    List<User> findAll();
-
-    Optional<User> findById(UUID id);
-
 }
