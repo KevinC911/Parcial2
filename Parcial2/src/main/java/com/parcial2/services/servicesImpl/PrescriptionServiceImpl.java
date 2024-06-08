@@ -42,7 +42,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public void savePrescription(SavePrescriptionDTO savePrescriptionDTO, UUID doctorId) {
         // Verify that the user is a doctor
         User doctor = userRepository.findById(doctorId).orElseThrow(() -> new IllegalArgumentException("Doctor not found"));
-        if (!doctor.getRoles().contains("DCTR")) {
+        boolean isDoctor = doctor.getRoles().stream().anyMatch(role -> role.getName().equals("DOCTOR"));
+        if (!isDoctor) {
             throw new IllegalArgumentException("User is not a doctor");
         }
 
@@ -52,8 +53,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
         // Create and save the prescription
         Prescription prescription = new Prescription();
-        prescription.setDetails(savePrescriptionDTO.getDetails());
-        prescription.setMedicalAppointment(medicalAppointment);
+        prescription.setName(savePrescriptionDTO.getDetails());
+        prescription.setMedical_appointment(medicalAppointment); // Set the medical appointment
 
         prescriptionRepository.save(prescription);
     }

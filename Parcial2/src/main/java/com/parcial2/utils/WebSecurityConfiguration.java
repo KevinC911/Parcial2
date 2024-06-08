@@ -66,6 +66,7 @@ public class WebSecurityConfiguration {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/appointments/**").permitAll()
                         .requestMatchers("/api/prescriptions/**").permitAll()
+                        .requestMatchers("/api/histories/**").permitAll()
                         .anyRequest().authenticated()
         );
 
