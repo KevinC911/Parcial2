@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -20,7 +19,7 @@ public class MedicalAppointment {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID code;
 
-    private LocalDateTime appointmentdate;
+    private LocalDate appointmentdate;
 
     @ManyToOne
     @JoinColumn(name = "user_code")
@@ -30,5 +29,8 @@ public class MedicalAppointment {
     @JsonIgnore
     private List<Prescription> prescriptions;
 
+    @OneToMany(mappedBy = "medical_appointment")
+    @JsonIgnore
+    private List<MedicalProcedure> procedures;
 
 }
