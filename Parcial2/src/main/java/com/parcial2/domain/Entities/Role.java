@@ -14,6 +14,7 @@ import java.util.List;
 @Entity
 @Table
 public class Role {
+
     @Id
     private String role;
 

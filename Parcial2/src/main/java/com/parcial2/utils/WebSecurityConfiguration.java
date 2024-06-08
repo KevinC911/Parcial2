@@ -60,6 +60,7 @@ public class WebSecurityConfiguration {
         //Http login and cors disabled
         http.httpBasic(withDefaults()).csrf(AbstractHttpConfigurer::disable);
 
+
         //Route filter
         http.authorizeHttpRequests(auth ->
                 auth

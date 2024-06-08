@@ -20,6 +20,7 @@ public class User implements UserDetails{
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID code;
     private String username;
+    @JsonIgnore
     private String password;
     private String email;
     private boolean active = false;

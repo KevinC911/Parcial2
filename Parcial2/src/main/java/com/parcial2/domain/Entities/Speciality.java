@@ -15,8 +15,7 @@ import java.util.UUID;
 @Table
 public class Speciality {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID code;
+    private String code;
 
     @OneToMany(mappedBy = "speciality")
     @JsonIgnore

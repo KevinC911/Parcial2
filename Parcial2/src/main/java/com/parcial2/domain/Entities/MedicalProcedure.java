@@ -12,8 +12,7 @@ import java.util.UUID;
 public class MedicalProcedure {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID code;
+    private String code;
 
     @ManyToOne
     @JoinColumn(name = "user_code")

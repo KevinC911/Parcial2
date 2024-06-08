@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -19,7 +20,7 @@ public class MedicalAppointment {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID code;
 
-    private LocalDate appointmentdate;
+    private LocalDateTime appointmentdate;
 
     @ManyToOne
     @JoinColumn(name = "user_code")

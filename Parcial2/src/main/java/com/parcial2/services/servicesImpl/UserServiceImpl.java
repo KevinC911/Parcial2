@@ -118,7 +118,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Could not find user");
         }
-
         return user;
     }
 }
